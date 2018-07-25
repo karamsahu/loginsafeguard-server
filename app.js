@@ -6,13 +6,25 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var cors = require('cors');
 
 var app = express();
+
+
+// enable cors
+app.use(cors({
+  origin: ['http://localhost:4200', 'http://127.0.0.1:4200'],
+  credentials: true
+}));
+
+// use mongoose
+var mongoose = require('mongoose');
+
+mongoose.connect('mongodb://root:superuser123@ds247101.mlab.com:47101/loginsafeguard');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
-
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
