@@ -22,6 +22,17 @@ async function addUserToDb(req, res) {
     return res.status(501).json(err);
   }
 }
+
+var updateUserToDb = async function(user) {
+  try {
+    var doc = await user.findOneAndUpdate({_id: user.id}, user, {new: true});          
+    console.log(JSON.stringify(doc))
+    return res.status(201).json(doc);
+  } catch (err) {
+    return res.status(501).json(err);
+  }
+}
+
 //users route .js
 
 router.post('/login', function (req, res, next) {
